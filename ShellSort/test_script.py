@@ -50,7 +50,7 @@ arr = []
 
 for i in range(n):
     startTime = time.time()
-    subprocess.run([argv[1], 'input\\{}.txt'.format(i+1)], stdout=subprocess.PIPE)
+    result = subprocess.run([argv[1], 'input\\{}.txt'.format(i+1)], stdout=subprocess.PIPE)
     finishTime = time.time() - startTime
 
     with open('input\\{}.txt'.format(i+1), 'r') as f:
@@ -63,8 +63,10 @@ for i in range(n):
     else:
         if flagPlotting: arr.append(-1)
         print("Test #{} not passed!".format(i+1))
+        print("Return code:", result.returncode)
+        print("stdout:", result.stdout)
+        print("stderr:", result.stderr)
         
-
 if flagPlotting:
     plt.xlabel("Length of array")
     plt.ylabel("Time, ms")
