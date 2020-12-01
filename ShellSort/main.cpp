@@ -2,6 +2,8 @@
 #include <fstream>
 #include <vector>
 #include <cmath>
+#include <chrono>
+#include <iomanip>
 
 using namespace std;
 
@@ -31,7 +33,7 @@ void shellSort(vector<int> &arr)
 
 int main(int argc, char **argv)
 {
-    if (argc < 2) return -1;
+    if (argc < 3) return -1;
 
     ifstream inp(argv[1]);
     vector<int> vec;
@@ -42,9 +44,15 @@ int main(int argc, char **argv)
     }
     inp.close();
 
+    auto start = chrono::steady_clock::now();
     shellSort(vec);
+    auto end = chrono::steady_clock::now();
 
-    ofstream out ("output.txt");
+    auto diff = end - start;
+
+    ofstream out (string("output\\") + argv[2] + ".txt");
+
+    out << chrono::duration <double, milli> (diff).count() << "\n";
     for(int i = 0; i < vec.size(); i++){
         out << vec[i] << " " ;
     }

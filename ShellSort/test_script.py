@@ -19,6 +19,7 @@ argv = sys.argv
 n = 100
 flag = False
 flagPlotting = True
+flagCompiled = True
 
 if len(argv) < 2:
     print("Usage:")
@@ -31,6 +32,7 @@ if len(argv) < 2:
     exit()
 elif len(argv) == 2 and argv[1] == 'clear':
     clearFolder('input\\')
+    clearFolder('output\\')
     exit(0)
 elif len(argv) == 2 and argv[1] == 'gen':
     flag = True
@@ -48,17 +50,27 @@ if flag:
 
 arr = []
 
-for i in range(n):
-    startTime = time.time()
-    result = subprocess.run([argv[1], 'input\\{}.txt'.format(i+1)], stdout=subprocess.PIPE)
-    finishTime = time.time() - startTime
+command = argv[1]
+if command.split('.')[-1] == 'cpp':
+    print('COMPILING...')
+    result = subprocess.run(['g++', command, '-o', command[:-3]+'o'], stdout=subprocess.PIPE)
+    print("Return code:", result.returncode)
+    print("stdout:", result.stdout)
+    print("stderr:", result.stderr)
+    print("FINISHED COMPILING")
+    command = command[:-3]+'o'
+    if result.returncode != 0: exit(-1)
 
+for i in range(n):
+    result = subprocess.run([command, 'input\\{}.txt'.format(i+1), str(i+1)], stdout=subprocess.PIPE)
+    finishTime = -1
     with open('input\\{}.txt'.format(i+1), 'r') as f:
         inputLst = list(map(int, f.read().split()))
-    with open('output.txt', 'r') as f:
-        outputLst = list(map(int, f.read().split()))
+    with open('output\\{}.txt'.format(i+1), 'r') as f:
+        finishTime = float(f.readline())
+        outputLst = list(map(int, f.readline().split()))
     if sorted(inputLst) == outputLst:
-        if flagPlotting: arr.append(finishTime*1000)
+        if flagPlotting: arr.append(finishTime)
         print("Test #{} passed!".format(i+1))
     else:
         if flagPlotting: arr.append(-1)
