@@ -51,7 +51,7 @@ if flag:
 arr = []
 
 command = argv[1]
-if command.split('.')[-1] == 'cpp' or command.split('.')[-1] == 'c':
+if command.split('.')[-1] == 'cpp':
     print('COMPILING...')
     result = subprocess.run(['g++', command, '-o', command[:-3]+'o'], stdout=subprocess.PIPE)
     print("Return code:", result.returncode)
