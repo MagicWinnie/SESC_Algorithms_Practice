@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <cmath>
 #include <chrono>
 #include <iomanip>
@@ -14,7 +13,7 @@ void swap_m(int *r, int *s)
     *s = temp;
 } 
 
-int part(vector <int> &arr, int l, int h)
+int part(int *arr, int l, int h)
 {
     int opor = arr[(l + h)/2];
     int i = l - 1;
@@ -34,7 +33,7 @@ int part(vector <int> &arr, int l, int h)
     }
 }
 
-void quickSort(vector <int> &arr, int l, int h)
+void quickSort(int *arr, int l, int h)
 {
     if (l < h)
     {
@@ -49,16 +48,19 @@ int main(int argc, char **argv)
     if (argc < 3) return -1;
 
     ifstream inp(argv[1]);
-    vector<int> vec;
+    // vector<int> arr;
 
-    int current_number = 0;
+    int current_number = 0, n, i = 0;
+    inp >> n;
+    int *arr = (int*)malloc(n*sizeof(int));
     while (inp >> current_number){
-        vec.push_back(current_number);
+        arr[i] = current_number;
+        i++;
     }
     inp.close();
 
     auto start = chrono::steady_clock::now();
-    quickSort(vec, 0, vec.size() - 1);
+    quickSort(arr, 0, n - 1);
     auto end = chrono::steady_clock::now();
 
     auto diff = end - start;
@@ -66,8 +68,8 @@ int main(int argc, char **argv)
     ofstream out (string("output\\") + argv[2] + ".txt");
 
     out << chrono::duration <double, milli> (diff).count() << "\n";
-    for(int i = 0; i < vec.size(); i++){
-        out << vec[i] << " " ;
+    for(int i = 0; i < n; i++){
+        out << arr[i] << " " ;
     }
     out.close();
 

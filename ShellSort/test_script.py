@@ -45,6 +45,7 @@ if flag:
     for i in range(n):
         lst = [random.randint(-10**5, 10**5) for _ in range(iterators[i])]
         with open('input\\{}.txt'.format(i+1), 'w') as f:
+            f.write(str(iterators[i]) + '\n')
             f.write(" ".join(map(str, lst)))
     exit(0)
 
@@ -65,7 +66,8 @@ for i in range(n):
     result = subprocess.run([command, 'input\\{}.txt'.format(i+1), str(i+1)], stdout=subprocess.PIPE)
     finishTime = -1
     with open('input\\{}.txt'.format(i+1), 'r') as f:
-        inputLst = list(map(int, f.read().split()))
+        input_n = int(f.readline())
+        inputLst = list(map(int, f.readline().split()))
     with open('output\\{}.txt'.format(i+1), 'r') as f:
         finishTime = float(f.readline())
         outputLst = list(map(int, f.readline().split()))

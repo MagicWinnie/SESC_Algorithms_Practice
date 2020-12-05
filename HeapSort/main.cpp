@@ -1,13 +1,12 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <cmath>
 #include <chrono>
 #include <iomanip>
 
 using namespace std;
 
-void sink(vector<int> &arr, int ind, int m)
+void sink(int *arr, int ind, int m)
 {
     int big, l, r;
 
@@ -27,22 +26,22 @@ void sink(vector<int> &arr, int ind, int m)
     }
 }
 
-void build_heap(vector<int> &arr)
+void build_heap(int *arr, int n)
 {
-    int ind = arr.size()/2 - 1;
+    int ind = n/2 - 1;
     
     while (ind >= 0)
     {
-        sink(arr, ind, arr.size());
+        sink(arr, ind, n);
         ind--;
     }
 }
 
-void heapSort(vector<int> &arr)
+void heapSort(int *arr, int n)
 {
-    build_heap(arr);
+    build_heap(arr, n);
 
-    int end = arr.size() - 1;
+    int end = n - 1;
 
     while (end >= 0)
     {
@@ -57,16 +56,19 @@ int main(int argc, char **argv)
     if (argc < 3) return -1;
 
     ifstream inp(argv[1]);
-    vector<int> vec;
+    // vector<int> vec;
 
-    int current_number = 0;
+    int current_number = 0, n, i = 0;
+    inp >> n;
+    int *arr = (int*)malloc(n*sizeof(int));
     while (inp >> current_number){
-        vec.push_back(current_number);
+        arr[i] = current_number;
+        i++;
     }
     inp.close();
 
     auto start = chrono::steady_clock::now();
-    heapSort(vec);
+    heapSort(arr, n);
     auto end = chrono::steady_clock::now();
 
     auto diff = end - start;
@@ -74,8 +76,8 @@ int main(int argc, char **argv)
     ofstream out (string("output\\") + argv[2] + ".txt");
 
     out << chrono::duration <double, milli> (diff).count() << "\n";
-    for(int i = 0; i < vec.size(); i++){
-        out << vec[i] << " " ;
+    for(int i = 0; i < n; i++){
+        out << arr[i] << " " ;
     }
     out.close();
 
