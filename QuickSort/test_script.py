@@ -25,7 +25,7 @@ if len(argv) < 2:
     print("Usage:")
     print("\tGenerate input data:")
     print("\t\ttest_script.py gen")
-    print("\tClear input folder:")
+    print("\tClear input and output folder:")
     print("\t\ttest_script.py clear")
     print("\tTesting:")
     print("\t\ttest_script.py <inputFile>")
@@ -77,9 +77,9 @@ for i in range(n):
     else:
         if flagPlotting: arr.append(-1)
         print("Test #{} not passed!".format(i+1))
-        print("Return code:", result.returncode)
-        print("stdout:", result.stdout)
-        print("stderr:", result.stderr)
+        print("\tReturn code:", result.returncode)
+        print("\tstdout:", result.stdout)
+        print("\tstderr:", result.stderr)
         
 if flagPlotting:
     plt.xlabel("Length of array")
