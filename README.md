@@ -1,7 +1,5 @@
 # SESC_Algorithms_Practice
-### **First time run:**  
-#### `test_script.py gen`
-#### `test_script.py main.cpp`
+## **For first time run you have to generate tests!**
 ### **Usage:**  
 * #### `test_script.py gen` to generate tests (only for sorting).  
 * #### `test_script.py clear` to clean `input` and `output` folders.  
