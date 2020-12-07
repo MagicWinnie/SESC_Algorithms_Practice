@@ -56,7 +56,6 @@ int main(int argc, char **argv)
     if (argc < 3) return -1;
 
     ifstream inp(argv[1]);
-    // vector<int> vec;
 
     int current_number = 0, n, i = 0;
     inp >> n;

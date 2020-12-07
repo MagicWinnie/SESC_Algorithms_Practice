@@ -6,99 +6,92 @@
 
 using namespace std;
 
-void sink(int *arr, int ind, int s, int e)
+void sink(int *arr, int ind, int n)
 {
-    int big, l, r, len = e-s;
-    l = 2*ind + 1;
-    r = l + 1;
+    int big = ind;
+    int l = 2 * ind + 1;
+    int r = l + 1;
 
-    if (l < len && arr[s + l] > arr[s + ind])
+    if (l < n && arr[l] > arr[big])
         big = l;
-    else
-        big = ind;
-    if (r < len && arr[s + r] > arr[s + big])
+    if (r < n && arr[r] > arr[big])
         big = r;
     if (big != ind)
     {
-        swap(arr[s + big], arr[s + ind]);
-        sink(arr, big, s, e);
+        swap(arr[ind], arr[big]);
+        sink(arr, big, n);
     }
 }
 
-void build_heap(int *arr, int s, int e)
+void build_heap(int *arr, int n)
 {
-    int len = e - s;
-    int ind = (len - 2)/2;
+    int ind = n / 2 - 1;
     
     while (ind >= 0)
     {
-        sink(arr, ind, s, e);
+        sink(arr, ind, n);
         ind--;
     }
 }
 
-void heapSort(int *arr, int s, int e, int n)
+void heapSort(int *arr, int n)
 {
-    build_heap(arr, s, e);
-
-    int end = n - 1;
-
-    while (end >= 0)
+    build_heap(arr, n);
+    int i = n - 1;
+    while (i >= 0)
     {
-        swap(arr[0], arr[end]);
-        sink(arr, 0, s, end);
-        end--;
+        swap(arr[0], arr[i]);
+        sink(arr, 0, i);
+        i--;
     }
 }
 
 void insertionSort(int *arr, int s, int f)  
 {  
     int i, key, j;  
-    for (i = s + 1; i <= f; i++)
+    for (i = s + 1; i < f; i++)
     {  
         key = arr[i];
-        j = i;
+        j = i - 1;
   
-        while (j > s && arr[j - 1] > key) 
+        while (j >= s && arr[j] > key) 
         {
-            arr[j] = arr[j - 1];
+            arr[j + 1] = arr[j];
             j--;
         }  
-        arr[j] = key;
+        arr[j + 1] = key;
     }  
+    return;
 }  
 
-int partition(int *arr, int s, int f)
+void introSort(int *arr, int n, int maxdepth)
 {
-    int pivotIndex = rand() % (f - s + 1) + s;
-    swap(arr[pivotIndex], arr[f]);
-    int pivot = arr[f];
-    int pIndex = s;
-    for (int i = s; i < f; i++)
-    {
-        if (arr[i] <= pivot)
-        {
-            swap(arr[i], arr[pIndex]);
-            pIndex++;
-        }
+    if(maxdepth > 0){
+        heapSort(arr, n);
+        return;
     }
-    swap(arr[pIndex], arr[f]);
-    return pIndex;
+
+    int ind = 0;
+    int pivot = arr[n / 2];
+    
+    swap(arr[n / 2], arr[n-1]);
+
+    for(int i = 0; i < n - 1; i++)
+        if(arr[i] < pivot)
+            swap(arr[i], arr[ind++]);
+    
+    swap(arr[n - 1], arr[ind]);
+    
+    if (0 < ind - 1 && ind > 16)
+        introSort(arr, ind, maxdepth--);
+    if (ind + 1 < n - 1 && n - ind - 1 > 16)
+        introSort(arr + ind + 1, n - ind - 1, maxdepth--);
 }
 
-void introSort(int *arr, int s, int e, int maxdepth, int n)
-{
-    if (n <= 1) return;
-    else if (n < 16) insertionSort(arr, s, e);
-    else if (maxdepth == 0) heapSort(arr, s, e, n);
-    else 
-    {
-        int p = partition(arr, s, e);
-        introSort(arr, s, p + 1, maxdepth - 1, n);
-        introSort(arr, p + 1, e, maxdepth - 1, n);
-    }
+void introsort(int *arr, int n){
+    introSort(arr, n, (int)floor(2*log(n)));
+    insertionSort(arr, 0, n);
 }
-
 int main(int argc, char **argv)
 {
     if (argc < 3) return -1;
@@ -116,11 +109,11 @@ int main(int argc, char **argv)
     inp.close();
 
     auto start = chrono::steady_clock::now();
-    introSort(arr, 0, n, log(n)*2, n);
+    introsort(arr, n);
+
     auto end = chrono::steady_clock::now();
 
     auto diff = end - start;
-
     ofstream out (string("output\\") + argv[2] + ".txt");
 
     out << chrono::duration <double, milli> (diff).count() << "\n";
