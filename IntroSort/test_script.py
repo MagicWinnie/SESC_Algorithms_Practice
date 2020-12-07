@@ -42,6 +42,7 @@ iterators = [10*i for i in range(1, n+1)]
 
 if flag:
     if 'input' not in os.listdir('.'): os.mkdir('input')
+    if 'output' not in os.listdir('.'): os.mkdir('output')
     for i in range(n):
         lst = [random.randint(-10**5, 10**5) for _ in range(iterators[i])]
         with open('input\\{}.txt'.format(i+1), 'w') as f:

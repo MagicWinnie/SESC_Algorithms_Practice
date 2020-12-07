@@ -36,6 +36,8 @@ if command.split('.')[-1] == 'cpp':
     command = command[:-3] + 'o'
     if result.returncode != 0: exit(-1)
 
+if 'output' not in os.listdir('.'): os.mkdir('output')
+
 for i in range(n):
     result = subprocess.run([command, 'input\\{}.in'.format(i+1), str(i+1)], stdout=subprocess.PIPE)
     with open('output\\{}.txt'.format(i+1), 'r') as f:
