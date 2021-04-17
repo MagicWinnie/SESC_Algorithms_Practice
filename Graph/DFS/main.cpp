@@ -25,12 +25,13 @@ void printArr(vector<int> arr, int n)
     cout << endl;
 }
 
-void DFS(vector<vector<int>> arr, int s, vector<int> visited, vector<int> path)
+void DFS(vector<vector<int>> arr, int s, vector<bool> &visited, vector<int> &path)
 {
-    visited[s] = 1;
+    visited[s] = true;
+    // cout << s << " " << visited[s] << endl;
     path.push_back(s);
-    for (int r = 0; r <= arr.size(); r++)
-        if (!visited[r])
+    for (int r = 0; r < arr.size(); r++)
+        if (arr[s][r] == 1 && !visited[r])
             DFS(arr, r, visited, path);
 }
 
@@ -51,21 +52,16 @@ int main(int argc, char **argv)
         for (int j = 0; j < n; j++)
             inp >> arr[i][j];
     inp.close();
-    vector<int> visited(n);
-    fill(visited.begin(), visited.end(), 0);
+    vector<bool> visited(n);
+    fill(visited.begin(), visited.end(), false);
     vector<int> path;
 
-    for (int i = 0; i < n; i++)
-        if (visited[i] == 0)
-            DFS(arr, s, visited, path);
+    DFS(arr, s, visited, path);
 
     ofstream out(string("output\\") + argv[2] + ".txt");
-
     out << path.size() << endl;
-
-    for (int i = 0; i < path.size(); i--)
+    for (int i = 0; i < path.size(); i++)
         out << path[i] << " ";
-
     out.close();
 
     return 0;

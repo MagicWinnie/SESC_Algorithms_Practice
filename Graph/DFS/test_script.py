@@ -77,8 +77,8 @@ for i in range(n):
         size, start = map(int, f.readline().split())
         matrix = [list(map(int, f.readline().split())) for _ in range(size)]
         matrix = csr_matrix(matrix)
-        true_out, _ = depth_first_order(matrix, start)
-    if output_len == len(true_out) and output_path == true_out:
+        true_out, aa = depth_first_order(matrix, start)
+    if output_len == len(true_out) and output_path == true_out.tolist():
         print("-" * 10)
         print("Test #{} passed!".format(i + 1))
         print("-" * 10)
