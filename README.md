@@ -1,12 +1,9 @@
 # SESC_Algorithms_Practice
-## **For first time run you have to generate tests!**
-### **Usage:**  
-* #### `test_script.py gen` to generate tests (only for sorting).  
-* #### `test_script.py main.cpp` to compile and run.
-* #### `test_script.py main.o` to run if is already compiled.
-### **Requirments:**  
-* #### `matplotlib` for plotting (if not installed - plot won't be drawn).
-Made by Dmitrii Okoneshnikov, 10-4  
+## **Usage:**  
+#### `python test_script.py` to compile and run.  
+## **Requirments:**  
+#### python3.6 or higher
+#### `python -m pip install numpy scipy matplotlib`
 
 ## Contents
 * First Semester  
@@ -19,3 +16,6 @@ Made by Dmitrii Okoneshnikov, 10-4
 * Second Semester  
     * [DFS](Graph/DFS/main.cpp)  
     * [Ford-Bellman](Graph/Bellman-Ford/main.cpp)  
+    * [Jarvis' Gift wrapping](ConvexHull/Graham/main.cpp)
+
+Made by Dmitrii Okoneshnikov, 10-4, 2021  
