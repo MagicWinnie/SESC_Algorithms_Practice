@@ -1,3 +1,4 @@
+from checker import checker
 import os
 import sys
 import shutil
@@ -81,15 +82,6 @@ def clearFolder(path, BLACKLIST=['o', 'exe']):
         os.remove(file_path)
 
 
-def check_arrs(pts_1, pts_2, err=10e-9):
-    if len(pts_1) != len(pts_2):
-        return False
-    for i in range(len(pts_1)):
-        if (abs(pts_1[i][0] - pts_2[i][0]) > err) or (abs(pts_1[i][1] - pts_2[i][1]) > err):
-            return False
-    return True
-
-
 # some init vars
 assert 'input' in os.listdir(ROOT_SUBFOLDER), "[ERROR] No input folder"
 
@@ -122,7 +114,6 @@ else:
 assert 'checker.py' in os.listdir(
     ROOT_SUBFOLDER), "[ERROR] No 'checker.py' file"
 sys.path.append(os.path.join(ROOT_SUBFOLDER))
-from checker import checker
 
 
 sorting = False
@@ -148,18 +139,6 @@ for i in range(n):
 
     user_output, true_output, checker_result = checker(os.path.join(ROOT_SUBFOLDER, 'input', '{}.in'.format(
         i + 1)), os.path.join(ROOT_SUBFOLDER, 'output', '{}.txt'.format(i + 1)))
-
-    # with open(os.path.join('output', '{}.txt'.format(i + 1)), 'r') as f:
-    #     output_len = int(f.readline())
-    #     output_pts = [list(map(float, f.readline().split()))
-    #                   for _ in range(output_len)]
-    # with open(os.path.join('input', '{}.in'.format(i + 1)), 'r') as f:
-    #     true_len = int(f.readline())
-    #     true_inp_pts = [list(map(float, f.readline().split()))
-    #                     for _ in range(true_len)]
-    #     true_pts = ConvexHull(true_inp_pts).points
-    # if isinstance(true_pts, np.ndarray):
-    #     true_pts = true_pts.tolist()
 
     if sorting:
         arr.append(user_output['time'])

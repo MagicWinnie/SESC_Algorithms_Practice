@@ -18,4 +18,4 @@
     * [Ford-Bellman](Graph/Bellman-Ford/main.cpp)  
     * [Graham's convex hull](ConvexHull/Graham/main.cpp)
 
-Made by Dmitrii Okoneshnikov, 10-4, 2021  
+Made by Dmitrii Okoneshnikov, 10-4, SESC of NSU, 2021  
