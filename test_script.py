@@ -63,6 +63,9 @@ for i in range(len(TO_PRINT)):
 # getting right input from user
 while True:
     inp = input(f"Enter a number in from {0} to {len(TO_PRINT) - 1}: ")
+    if inp == '-1':
+        print('Quitting')
+        exit(0)
     if not(inp.isdigit()):
         print("Not a number. Try again")
         continue

@@ -84,7 +84,7 @@ int main(int argc, char **argv)
     int cost = BellmanFord(arr, n, s, f, path);
 
     ofstream out(argv[2], std::ios::out | std::ios::trunc);
-    cerr << "[DEBUG] Error: " << strerror(errno) << endl;
+    cout << "[DEBUG] Error: " << strerror(errno) << endl;
     cout << "[DEBUG] File path: " << argv[2] << endl;
     
     out << cost << endl;

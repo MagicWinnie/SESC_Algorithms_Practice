@@ -67,7 +67,7 @@ int main(int argc, char **argv)
     auto diff = end - start;
 
     ofstream out(argv[2], std::ios::out | std::ios::trunc);
-    cerr << "[DEBUG] Error: " << strerror(errno) << endl;
+    cout << "[DEBUG] Error: " << strerror(errno) << endl;
     cout << "[DEBUG] File path: " << argv[2] << endl;
 
     out << chrono::duration <double, milli> (diff).count() << "\n";

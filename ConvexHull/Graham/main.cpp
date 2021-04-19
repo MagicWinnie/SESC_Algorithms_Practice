@@ -2,81 +2,72 @@
 #include <fstream>
 #include <cmath>
 #include <vector>
+#include <limits>
 #include <cstring>
 #include <algorithm>
 
 using namespace std;
+
+typedef numeric_limits< double > dbl;
 
 struct Point
 {
     double x;
     double y;
 
-    Point() : x(0.0), y(0.0){};
-    Point(double x, double y) : x(x), y(y){};
+    Point(double x = 0.0, double y = 0.0)
+        : x(x), y(y)
+    {
+    }
 
-    Point operator=(Point pnt) { (*this).x = pnt.x; (*this).y = pnt.y; return (*this); }
-
-    Point operator+(Point pnt) { return Point((*this).x + pnt.x, (*this).y + pnt.y); }
-    Point operator-(Point pnt) { return Point((*this).x - pnt.x, (*this).y - pnt.y); }
-    Point operator*(Point pnt) { return Point((*this).x * pnt.x, (*this).y * pnt.y); }
-    Point operator/(Point pnt) { return Point((*this).x / pnt.x, (*this).y / pnt.y); }
-    
+    Point operator-(Point pnt) { return Point(x - pnt.x, y - pnt.y); }
 };
 
-bool operator==(Point a, Point b) { return a.x==b.x && a.y==b.y; }
 ostream &operator<<(ostream &stream, const Point &p)
 {
     stream << p.x << " " << p.y;
     return stream;
 }
-ostream &operator<<(ostream &stream, vector<int> &p)
+
+double vect_prod(Point A, Point B)
 {
-    for (int i = 0; i < p.size(); i++)
-        stream << p[i] << " ";
-    return stream;
+    return A.x * B.y - A.y * B.x;
 }
 
-
-float rotate(Point A, Point B, Point C)
+bool sort_func(Point a, Point b)
 {
-    return (B.x - A.x) * (C.y - B.y) - (B.y - A.y) * (C.x - B.x);
+    return vect_prod(a, b) > 0 || vect_prod(a, b) == 0 && (a.x*a.x + a.y*a.y < b.x*b.x + b.y*b.y);
 }
 
-vector<int> convex_hull(vector<Point> in_points)
+vector<Point> convex_hull(vector<Point> points)
 {
-    int n = in_points.size();
+    Point p0 = points[0];
+    for (Point p : points)
+        if (p.x < p0.x || (p.x == p0.x && p.y < p0.y))
+            p0 = p;
 
-    vector<int> P;
-    for (int i = 0; i < n; i++)
-        P.push_back(i);
+    // p0 : start of coordinates
+    for (Point &p : points)
+    {
+        p.x -= p0.x; p.y -= p0.y;
+    }
+    // sort polar
+    sort(points.begin(), points.end(), &sort_func);
 
-    for (int i = 1; i < n; i++)
+    vector<Point> hull;
+    for (Point p : points)
     {
-        if (in_points[P[i]].x < in_points[P[i]].x)
-            swap(P[i], P[0]);
+        // remove the last point of the minimal convex hull while it forms a convexity
+        while (hull.size() >= 2 && (vect_prod((p - hull.back()), (hull[hull.size() - 2] - hull.back())) <= 0))
+            hull.pop_back();
+        hull.push_back(p);
     }
-
-    for (int i = 2; i < n; i++)
+    // get points back
+    for (Point &p : hull)
     {
-        int j = i;
-        while (j > 1 && (rotate(in_points[P[0]], in_points[P[j - 1]], in_points[P[j]]) < 0))
-        {
-            swap(P[j], P[j - 1]);
-            j--;
-        }
+        p.x += p0.x; p.y += p0.y;
     }
-    vector<int> out{P[0], P[1]};
-    for (int i = 2; i < n; i++)
-    {
-        while (rotate(in_points[out[out.size() - 2]], in_points[out[out.size() - 1]], in_points[P[i]]) < 0)
-        {
-            out.pop_back();
-        }
-        out.push_back(P[i]);
-    }
-    // cout << out << endl;
-    return out;
+    return hull;
 }
 
 int main(int argc, char **argv)
@@ -101,11 +92,11 @@ int main(int argc, char **argv)
 
     inp.close();
 
-    vector<int> ch = convex_hull(arr);
-    cout << ch << endl;
+    vector<Point> ch = convex_hull(arr);
 
     ofstream out(argv[2], std::ios::out | std::ios::trunc);
-    cerr << "[DEBUG] Error: " << strerror(errno) << endl;
+    out.precision(dbl::max_digits10);
+    cout << "[DEBUG] Error: " << strerror(errno) << endl;
     cout << "[DEBUG] File path: " << argv[2] << endl;
     out << ch.size() << endl;
     for (int i = 0; i < ch.size(); i++)

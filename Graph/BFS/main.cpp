@@ -96,7 +96,7 @@ int main(int argc, char **argv)
     int *path = BFS(arr, s, f, n, &path_size);
 
     ofstream out(argv[2], std::ios::out | std::ios::trunc);
-    cerr << "[DEBUG] Error: " << strerror(errno) << endl;
+    cout << "[DEBUG] Error: " << strerror(errno) << endl;
     cout << "[DEBUG] File path: " << argv[2] << endl;
 
     out << path_size << endl;
