@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iterator>
 #include <algorithm>
+#include <cstring>
 #include <queue>
 #include <cmath>
 
@@ -94,7 +95,9 @@ int main(int argc, char **argv)
     int path_size;
     int *path = BFS(arr, s, f, n, &path_size);
 
-    ofstream out (string("output\\") + argv[2] + ".txt");
+    ofstream out(argv[2], std::ios::out | std::ios::trunc);
+    cerr << "[DEBUG] Error: " << strerror(errno) << endl;
+    cout << "[DEBUG] File path: " << argv[2] << endl;
 
     out << path_size << endl;
     

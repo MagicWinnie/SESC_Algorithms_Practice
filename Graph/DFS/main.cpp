@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <queue>
 #include <cmath>
+#include <cstring>
 #include <vector>
 
 using namespace std;
@@ -58,7 +59,10 @@ int main(int argc, char **argv)
 
     DFS(arr, s, visited, path);
 
-    ofstream out(string("output\\") + argv[2] + ".txt");
+    ofstream out(argv[2], std::ios::out | std::ios::trunc);
+    cerr << "[DEBUG] Error: " << strerror(errno) << endl;
+    cout << "[DEBUG] File path: " << argv[2] << endl;
+
     out << path.size() << endl;
     for (int i = 0; i < path.size(); i++)
         out << path[i] << " ";

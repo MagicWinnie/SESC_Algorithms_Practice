@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cmath>
 #include <chrono>
+#include <cstring>
 #include <iomanip>
 
 using namespace std;
@@ -65,7 +66,9 @@ int main(int argc, char **argv)
 
     auto diff = end - start;
 
-    ofstream out (string("output\\") + argv[2] + ".txt");
+    ofstream out(argv[2], std::ios::out | std::ios::trunc);
+    cerr << "[DEBUG] Error: " << strerror(errno) << endl;
+    cout << "[DEBUG] File path: " << argv[2] << endl;
 
     out << chrono::duration <double, milli> (diff).count() << "\n";
     for(int i = 0; i < n; i++){

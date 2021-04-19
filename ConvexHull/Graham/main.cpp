@@ -2,93 +2,81 @@
 #include <fstream>
 #include <cmath>
 #include <vector>
+#include <cstring>
 #include <algorithm>
 
 using namespace std;
 
-typedef struct Point
+struct Point
 {
     double x;
     double y;
 
-    bool operator<(const Point &p) const
-    {
-        if (x < p.x)
-            return true;
-        else if (x == p.x)
-            return (y > p.y) ? true : false;
-        else
-            return false;
-    }
+    Point() : x(0.0), y(0.0){};
+    Point(double x, double y) : x(x), y(y){};
 
-    bool operator==(const Point &p) const
-    {
-        return (p.x == x) && (p.y == y) ? true : false;
-    }
-} point;
+    Point operator=(Point pnt) { (*this).x = pnt.x; (*this).y = pnt.y; return (*this); }
 
-ostream &operator<<(ostream &stream, const point &p)
+    Point operator+(Point pnt) { return Point((*this).x + pnt.x, (*this).y + pnt.y); }
+    Point operator-(Point pnt) { return Point((*this).x - pnt.x, (*this).y - pnt.y); }
+    Point operator*(Point pnt) { return Point((*this).x * pnt.x, (*this).y * pnt.y); }
+    Point operator/(Point pnt) { return Point((*this).x / pnt.x, (*this).y / pnt.y); }
+    
+};
+
+bool operator==(Point a, Point b) { return a.x==b.x && a.y==b.y; }
+ostream &operator<<(ostream &stream, const Point &p)
 {
     stream << p.x << " " << p.y;
     return stream;
 }
-
-point vect(const point &p, const point &q)
+ostream &operator<<(ostream &stream, vector<int> &p)
 {
-    Point res = {q.x - p.x, q.y - p.y};
-    return res;
+    for (int i = 0; i < p.size(); i++)
+        stream << p[i] << " ";
+    return stream;
 }
 
-double cosine(const point &p, const point &q)
+
+float rotate(Point A, Point B, Point C)
 {
-    int dot_prod = p.x * q.x + p.y * q.y;
-    double norm_2_p = sqrt(pow(p.x, 2) + pow(p.y, 2));
-    double norm_2_q = sqrt(pow(q.x, 2) + pow(q.y, 2));
-    return dot_prod / (norm_2_p * norm_2_q);
+    return (B.x - A.x) * (C.y - B.y) - (B.y - A.y) * (C.x - B.x);
 }
 
-void convex_hull(vector<point> in_points, vector<point> &out_points, double err = 10e-9)
+vector<int> convex_hull(vector<Point> in_points)
 {
-    if (in_points.size() <= 2)
-        return;
+    int n = in_points.size();
 
-    point f_point = in_points.front();
-    for (point p : in_points)
+    vector<int> P;
+    for (int i = 0; i < n; i++)
+        P.push_back(i);
+
+    for (int i = 1; i < n; i++)
     {
-        if (p < f_point)
-            f_point = p;
+        if (in_points[P[i]].x < in_points[P[i]].x)
+            swap(P[i], P[0]);
     }
-    out_points.push_back(f_point);
 
-    point ref_p = {f_point.x, f_point.y + 1};
-    point ref_q = f_point;
-    point next_point = ref_p;
-
-    while (true)
+    for (int i = 2; i < n; i++)
     {
-        point next_point = ref_p;
-
-        for (point p : in_points)
+        int j = i;
+        while (j > 1 && (rotate(in_points[P[0]], in_points[P[j - 1]], in_points[P[j]]) < 0))
         {
-            if (p == ref_q)
-                continue;
-
-            double cos_ang_1 = cosine(vect(ref_p, ref_q), vect(ref_q, p));
-            double cos_ang_2 = cosine(vect(ref_p, ref_q), vect(ref_q, next_point));
-
-            if (abs(cos_ang_1 - cos_ang_2) < err)
-                next_point = (p < next_point) ? p : next_point;
-            else if (cos_ang_1 > cos_ang_2)
-                next_point = p;
+            swap(P[j], P[j - 1]);
+            j--;
         }
-
-        out_points.push_back(next_point);
-        ref_p = ref_q;
-        ref_q = next_point;
-
-        if (next_point == f_point)
-            break;
     }
+    vector<int> out{P[0], P[1]};
+    for (int i = 2; i < n; i++)
+    {
+        while (rotate(in_points[out[out.size() - 2]], in_points[out[out.size() - 1]], in_points[P[i]]) < 0)
+        {
+            out.pop_back();
+        }
+        out.push_back(P[i]);
+    }
+    // cout << out << endl;
+    return out;
 }
 
 int main(int argc, char **argv)
@@ -102,10 +90,10 @@ int main(int argc, char **argv)
 
     inp >> n;
 
-    vector<point> arr;
+    vector<Point> arr;
     for (int i = 0; i < n; i++)
     {
-        point temp;
+        Point temp;
         inp >> temp.x;
         inp >> temp.y;
         arr.push_back(temp);
@@ -113,11 +101,12 @@ int main(int argc, char **argv)
 
     inp.close();
 
-    vector<point> ch;
+    vector<int> ch = convex_hull(arr);
+    cout << ch << endl;
 
-    convex_hull(arr, ch);
-
-    ofstream out(string("output\\") + argv[2] + ".txt");
+    ofstream out(argv[2], std::ios::out | std::ios::trunc);
+    cerr << "[DEBUG] Error: " << strerror(errno) << endl;
+    cout << "[DEBUG] File path: " << argv[2] << endl;
     out << ch.size() << endl;
     for (int i = 0; i < ch.size(); i++)
         out << ch[i] << endl;

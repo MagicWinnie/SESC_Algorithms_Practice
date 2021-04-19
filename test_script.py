@@ -1,4 +1,3 @@
-from checker import checker
 import os
 import sys
 import shutil
@@ -30,6 +29,8 @@ except ModuleNotFoundError:
 
 
 from scipy.spatial import ConvexHull
+
+WORKING_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 # getting available folders
 TO_PRINT = []
@@ -71,7 +72,8 @@ while True:
         continue
     break
 
-ROOT_SUBFOLDER = TO_PRINT[inp]['path']
+ROOT_SUBFOLDER = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), TO_PRINT[inp]['path'])
 
 
 def clearFolder(path, BLACKLIST=['o', 'exe']):
@@ -114,6 +116,7 @@ else:
 assert 'checker.py' in os.listdir(
     ROOT_SUBFOLDER), "[ERROR] No 'checker.py' file"
 sys.path.append(os.path.join(ROOT_SUBFOLDER))
+from checker import checker
 
 
 sorting = False
@@ -126,7 +129,7 @@ for i in range(n):
     # running the binary file
     try:
         result = subprocess.run([os.path.join(ROOT_SUBFOLDER, 'main.exe'), os.path.join(ROOT_SUBFOLDER, 'input', '{}.in'.format(
-            i + 1)), str(i + 1)], stdout=subprocess.PIPE, timeout=TIME_LIMIT)
+            i + 1)), os.path.join(ROOT_SUBFOLDER, 'output', '{}.txt'.format(str(i + 1)))], stdout=subprocess.PIPE, timeout=TIME_LIMIT)
     except TimeoutExpired:
         print("-" * 10)
         print("Test #{} not passed!".format(i + 1))
