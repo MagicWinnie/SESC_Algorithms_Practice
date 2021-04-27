@@ -15,7 +15,7 @@
     * [BFS](1/main.cpp)  
 
 * Second Semester  
-    * [DFS](DFS/main.cpp)  
+    * [DFS](2/main.cpp)  
     * [Ford-Bellman](Bellman-Ford/main.cpp)  
     * [Graham's Convex Hull](Graham/main.cpp)  
     * [Aho-Corasick](Aho-Corasick/main.cpp)
