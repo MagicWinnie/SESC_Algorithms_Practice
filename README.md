@@ -12,11 +12,12 @@
     * [Intro Sort](Sorting/IntroSort/main.cpp)  
     * [Quick Sort](Sorting/QuickSort/main.cpp)    
     * [Shell Sort](Sorting/ShellSort/main.cpp)  
-    * [BFS](Graph/BFS/main.cpp)  
+    * [BFS](1/main.cpp)  
 
 * Second Semester  
-    * [DFS](Graph/DFS/main.cpp)  
-    * [Ford-Bellman](Graph/Bellman-Ford/main.cpp)  
-    * [Graham's Convex Hull](ConvexHull/Graham/main.cpp)
+    * [DFS](DFS/main.cpp)  
+    * [Ford-Bellman](Bellman-Ford/main.cpp)  
+    * [Graham's Convex Hull](Graham/main.cpp)  
+    * [Aho-Corasick](Aho-Corasick/main.cpp)
 
 Made by Dmitriy Okoneshnikov, 10-4, SESC of NSU, 2021  

@@ -41,7 +41,7 @@ for x in os.walk('.'):
         continue
     if len(set(WHITELIST).intersection(os.listdir(x[0]))) > 0:
         path = x[0].replace('\\', '/')
-        if len(path.split('/')) > 2:
+        if len(path.split('/')) > 1:
             TO_PRINT.append({'path': path.replace('./', '') + '/'})
             i += 1
 
@@ -88,9 +88,9 @@ def clearFolder(path, BLACKLIST=['o', 'exe']):
 
 
 # some init vars
-assert 'input' in os.listdir(ROOT_SUBFOLDER), "[ERROR] No input folder"
+assert 'tests' in os.listdir(ROOT_SUBFOLDER), "[ERROR] No input folder"
 
-n = len(os.listdir(os.path.join(ROOT_SUBFOLDER, 'input')))
+n = len(os.listdir(os.path.join(ROOT_SUBFOLDER, 'tests')))
 TIME_LIMIT = 5
 
 FILE_TO_RUN = set(WHITELIST).intersection(set(os.listdir(ROOT_SUBFOLDER)))
@@ -131,7 +131,7 @@ if 'Sorting' in ROOT_SUBFOLDER:
 for i in range(n):
     # running the binary file
     try:
-        result = subprocess.run([os.path.join(ROOT_SUBFOLDER, 'main.exe'), os.path.join(ROOT_SUBFOLDER, 'input', '{}.in'.format(
+        result = subprocess.run([os.path.join(ROOT_SUBFOLDER, 'main.exe'), os.path.join(ROOT_SUBFOLDER, 'tests', '{}.in'.format(
             i + 1)), os.path.join(ROOT_SUBFOLDER, 'output', '{}.txt'.format(str(i + 1)))], stdout=subprocess.PIPE, timeout=TIME_LIMIT)
     except TimeoutExpired:
         print("-" * 10)
@@ -143,7 +143,7 @@ for i in range(n):
         print("Stopping...")
         exit(-1)
 
-    user_output, true_output, checker_result = checker(os.path.join(ROOT_SUBFOLDER, 'input', '{}.in'.format(
+    user_output, true_output, checker_result = checker(os.path.join(ROOT_SUBFOLDER, 'tests', '{}.in'.format(
         i + 1)), os.path.join(ROOT_SUBFOLDER, 'output', '{}.txt'.format(i + 1)))
 
     if sorting:
