@@ -28,12 +28,16 @@ def checker(path_to_input, path_to_output):
     
     true_pts = true_pts[:-1]
 
+    true_pts = [true_inp_pts.index(x) for x in true_pts]
+
     with open(path_to_output, 'r') as f:
+        t = float(f.readline())
         output_len = int(f.readline())
-        output_pts = [list(map(float, f.readline().split())) for _ in range(output_len)]
+        # output_pts = [list(map(float, f.readline().split())) for _ in range(output_len)]
+        output_pts = [int(f.readline()) for _ in range(output_len)]
 
         user_output['list'] = output_pts
 
     true_output['list'] = true_pts
-
-    return user_output, true_output, check_arrs(output_pts, true_pts)
+    print(t)
+    return user_output, true_output, output_pts == true_pts

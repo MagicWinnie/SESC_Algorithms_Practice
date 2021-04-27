@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <chrono>
 #include <vector>
 #include <limits>
 #include <cstring>
@@ -8,7 +9,7 @@
 
 using namespace std;
 
-typedef numeric_limits< double > dbl;
+typedef numeric_limits<double> dbl;
 
 struct Point
 {
@@ -23,6 +24,16 @@ struct Point
     Point operator-(Point pnt) { return Point(x - pnt.x, y - pnt.y); }
 };
 
+int getIndex(vector<Point> v, Point k)
+{
+    for (int i = 0; i < v.size(); i++)
+    {
+        if (abs(v[i].x - k.x) < 10e-8 && abs(v[i].y - k.y) < 10e-8)
+            return i;
+    }
+    return -1;
+}
+
 ostream &operator<<(ostream &stream, const Point &p)
 {
     stream << p.x << " " << p.y;
@@ -36,7 +47,7 @@ double vect_prod(Point A, Point B)
 
 bool sort_func(Point a, Point b)
 {
-    return vect_prod(a, b) > 0 || vect_prod(a, b) == 0 && (a.x*a.x + a.y*a.y < b.x*b.x + b.y*b.y);
+    return vect_prod(a, b) > 0 || vect_prod(a, b) == 0 && (a.x * a.x + a.y * a.y < b.x * b.x + b.y * b.y);
 }
 
 vector<Point> convex_hull(vector<Point> points)
@@ -46,36 +57,47 @@ vector<Point> convex_hull(vector<Point> points)
         if (p.x < p0.x || (p.x == p0.x && p.y < p0.y))
             p0 = p;
 
-    // p0 : start of coordinates
+    // сдвинуть в начало координат
     for (Point &p : points)
     {
-        p.x -= p0.x; p.y -= p0.y;
+        p.x -= p0.x;
+        p.y -= p0.y;
     }
-    // sort polar
+    // отсортировать по углу
     sort(points.begin(), points.end(), &sort_func);
 
     vector<Point> hull;
     for (Point p : points)
     {
-        // remove the last point of the minimal convex hull while it forms a convexity
+        // убираем последнюю точку минимальной выпуклой оболочки пока она выпуклая
         while (hull.size() >= 2 && (vect_prod((p - hull.back()), (hull[hull.size() - 2] - hull.back())) <= 0))
             hull.pop_back();
         hull.push_back(p);
     }
-    // get points back
+    // сдвигаем обратно точки
     for (Point &p : hull)
     {
-        p.x += p0.x; p.y += p0.y;
+        p.x += p0.x;
+        p.y += p0.y;
     }
     return hull;
 }
 
 int main(int argc, char **argv)
 {
-    if (argc < 3)
-        return -1;
+    string input_filename = "input.txt";
+    string output_filename = "output.txt";
+    if (argc == 2)
+    {
+        input_filename = argv[1];
+    }
+    else if (argc >= 3)
+    {
+        input_filename = argv[1];
+        output_filename = argv[2];
+    }
 
-    ifstream inp(argv[1]);
+    ifstream inp(input_filename);
 
     int n;
 
@@ -92,14 +114,19 @@ int main(int argc, char **argv)
 
     inp.close();
 
+    auto start = chrono::steady_clock::now();
     vector<Point> ch = convex_hull(arr);
+    auto end = chrono::steady_clock::now();
+    auto diff = end - start;
 
-    ofstream out(argv[2], std::ios::out | std::ios::trunc);
+    ofstream out(output_filename, std::ios::out | std::ios::trunc);
     out.precision(dbl::max_digits10);
+    out << chrono::duration<double, nano>(diff).count() << endl;
     cout << "[DEBUG] Error: " << strerror(errno) << endl;
     cout << "[DEBUG] File path: " << argv[2] << endl;
+
     out << ch.size() << endl;
     for (int i = 0; i < ch.size(); i++)
-        out << ch[i] << endl;
+        out << getIndex(arr, ch[i]) << endl;
     out.close();
 }

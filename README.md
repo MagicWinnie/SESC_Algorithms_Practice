@@ -16,8 +16,9 @@
 
 * Second Semester  
     * [DFS](2/main.cpp)  
-    * [Ford-Bellman](Bellman-Ford/main.cpp)  
-    * [Graham's Convex Hull](Graham/main.cpp)  
+    * [Ford-Bellman](3/main.cpp)  
+    * [Graham's Convex Hull](4/main.cpp)  
     * [Aho-Corasick](Aho-Corasick/main.cpp)
+    * [AVL-tree](6/main.cpp)
 
 Made by Dmitriy Okoneshnikov, 10-4, SESC of NSU, 2021  

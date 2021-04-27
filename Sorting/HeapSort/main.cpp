@@ -11,17 +11,18 @@ void sink(int *arr, int ind, int m)
 {
     int big, l, r;
 
-    while(ind < m)
+    while (ind < m)
     {
         big = ind;
-        l = 2*ind + 1;
+        l = 2 * ind + 1;
         r = l + 1;
 
         if (l < m && arr[l] > arr[big])
             big = l;
         if (r < m && arr[r] > arr[big])
             big = r;
-        if (big == ind) return;
+        if (big == ind)
+            return;
         swap(arr[ind], arr[big]);
         ind = big;
     }
@@ -29,8 +30,8 @@ void sink(int *arr, int ind, int m)
 
 void build_heap(int *arr, int n)
 {
-    int ind = n/2 - 1;
-    
+    int ind = n / 2 - 1;
+
     while (ind >= 0)
     {
         sink(arr, ind, n);
@@ -54,19 +55,21 @@ void heapSort(int *arr, int n)
 
 int main(int argc, char **argv)
 {
-    if (argc < 3) return -1;
+    if (argc < 3)
+        return -1;
 
     ifstream inp(argv[1]);
 
     int current_number = 0, n, i = 0;
     inp >> n;
-    int *arr = (int*)malloc(n*sizeof(int));
-    while (inp >> current_number){
+    int *arr = (int *)malloc(n * sizeof(int));
+    while (inp >> current_number)
+    {
         arr[i] = current_number;
         i++;
     }
     inp.close();
-    
+
     auto start = chrono::steady_clock::now();
     heapSort(arr, n);
     auto end = chrono::steady_clock::now();
@@ -77,9 +80,10 @@ int main(int argc, char **argv)
     cout << "[DEBUG] Error: " << strerror(errno) << endl;
     cout << "[DEBUG] File path: " << argv[2] << endl;
 
-    out << chrono::duration <double, milli> (diff).count() << "\n";
-    for(int i = 0; i < n; i++){
-        out << arr[i] << " " ;
+    out << chrono::duration<double, milli>(diff).count() << "\n";
+    for (int i = 0; i < n; i++)
+    {
+        out << arr[i] << " ";
     }
     out.close();
 
