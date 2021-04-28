@@ -73,6 +73,8 @@ int main(int argc, char **argv)
     int n, m, t, s, f;
 
     inp >> s >> f;
+    s--;
+    f--;
     inp >> n >> m >> t;
 
     vector<edge> arr;
@@ -80,6 +82,8 @@ int main(int argc, char **argv)
     {
         int i, j, k;
         inp >> i >> j;
+        i--;
+        j--;
         if (t == 2 || t == 4)
         {
             inp >> k;

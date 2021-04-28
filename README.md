@@ -20,5 +20,7 @@
     * [Graham's Convex Hull](4/main.cpp)  
     * [Aho-Corasick](Aho-Corasick/main.cpp)
     * [AVL-tree](6/main.cpp)
+    * [Kosaraju's algorithm](7/main.cpp)
+    * [Kruskal's algorithm](8/main.cpp)
 
 Made by Dmitriy Okoneshnikov, 10-4, SESC of NSU, 2021  

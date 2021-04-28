@@ -8,10 +8,14 @@ def checker(path_to_input, path_to_output):
     
     with open(path_to_input, 'r') as f:
         start, finish = map(int, f.readline().split())
+        start -= 1
+        finish -= 1
         n, m, t = map(int, f.readline().split())
         input_path = [[0 for _ in range(n)] for _ in range(n)]
         for _ in range(m):
             i, j, k = map(int, f.readline().split())
+            i -= 1
+            j -= 1
             input_path[i][j] = k
     with open(path_to_output, 'r') as f:
         output_dist = int(f.readline())
