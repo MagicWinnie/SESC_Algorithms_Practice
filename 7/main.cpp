@@ -20,7 +20,7 @@ void DFS_1(vector<vector<int>> arr, int s, vector<bool> &visited, vector<int> &o
     visited[s] = true;
     for (int r = 0; r < arr.size(); r++)
     {
-        if (arr[s][r] == 1 && !visited[r])
+        if (arr[s][r] != INT_MAX && !visited[r])
         {
             DFS_1(arr, r, visited, order);
         }
@@ -35,7 +35,7 @@ void DFS_2(vector<vector<int>> arr, int s, vector<bool> &visited, vector<int> &c
 
     for (int r = 0; r < arr.size(); r++)
     {
-        if (arr[s][r] == 1 && !visited[r])
+        if (arr[s][r] != INT_MAX && !visited[r])
         {
             DFS_2(arr, r, visited, components);
         }
@@ -94,6 +94,14 @@ int main(int argc, char **argv)
 
     vector<vector<int>> arr(n, vector<int>(n));
     vector<vector<int>> arr_inv(n, vector<int>(n));
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            arr[i][j] = INT_MAX;
+            arr_inv[i][j] = INT_MAX;
+        }
+    }
     for (int l = 0; l < m; l++)
     {
         int i, j, k;
@@ -139,9 +147,6 @@ int main(int argc, char **argv)
     // cout << endl;
 
     ofstream out(output_filename, std::ios::out | std::ios::trunc);
-    cout << "[DEBUG] Error: " << strerror(errno) << endl;
-    cout << "[DEBUG] File path: " << argv[2] << endl;
-
     out << num << endl;
     out.close();
 }
