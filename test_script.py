@@ -26,11 +26,24 @@ try:
 except ModuleNotFoundError:
     raise Exception(
         "You don't have matplotlib installed. Install it using: 'python -m pip install matplotlib'")
-
+try:
+    import networkx as nx
+except ModuleNotFoundError:
+    raise Exception(
+        "You don't have networkx installed. Install it using: 'python -m pip install networkx'")
 
 from scipy.spatial import ConvexHull
 
 WORKING_FOLDER = os.path.dirname(os.path.abspath(__file__))
+
+def get_task_name(path):
+    root = os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
+    work_file = list(set(['main.cpp', 'main.c']).intersection(os.listdir(root)))[0]
+    with open(os.path.join(root, work_file), 'r', encoding='utf-8') as raw_data:
+        first_line = raw_data.readline()
+    if '//' in first_line:
+        return first_line.replace('\n', '').replace('//', '').strip()
+    return -1
 
 # getting available folders
 TO_PRINT = []
@@ -56,9 +69,16 @@ for i in range(len(TO_PRINT)):
             print('\t'*j, end='')
             if j == len(path) - 1:
                 print(i, end=': ')
-            print(path[j])
+                task_name = get_task_name(TO_PRINT[i]['path'])
+                if task_name != -1:
+                    print(task_name)
+                else:
+                    print(path[j])
+            else:
+                print(path[j])
             TO_INPUT[i] = None
             used.add(path[j])
+print(f"{-1}: Exit")
 
 # getting right input from user
 while True:
