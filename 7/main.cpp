@@ -1,3 +1,9 @@
+// Kosaraju's algorithm
+// input:
+// list of edges
+// output:
+// number of strongly connected components
+// Written by Dmitriy Okoneshnikov, 2021
 #include <iostream>
 #include <fstream>
 #include <iterator>

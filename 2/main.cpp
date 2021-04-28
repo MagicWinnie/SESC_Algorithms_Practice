@@ -1,3 +1,9 @@
+// Depth-First Search
+// input:
+// list of edges
+// output:
+// check if you can get from one vertice to another 
+// Written by Dmitriy Okoneshnikov, 2021
 #include <iostream>
 #include <fstream>
 #include <iterator>
@@ -87,6 +93,4 @@ int main(int argc, char **argv)
 
     out << visited[f] << endl;
     out.close();
-
-    return 0;
 }

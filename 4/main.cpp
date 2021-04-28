@@ -1,3 +1,9 @@
+// Graham's convex hull
+// input:
+// list of points
+// output:
+// indicies of points that make up the convex hull
+// Written by Dmitriy Okoneshnikov, 2021
 #include <iostream>
 #include <fstream>
 #include <cmath>

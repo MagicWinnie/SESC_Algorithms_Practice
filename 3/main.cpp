@@ -1,3 +1,9 @@
+// Bellman-Ford
+// input:
+// list of edges
+// output:
+// sum of weights of the shortest path 
+// Written by Dmitriy Okoneshnikov, 2021
 #include <iostream>
 #include <fstream>
 #include <iterator>
@@ -117,6 +123,4 @@ int main(int argc, char **argv)
 
     out << cost << endl;
     out.close();
-
-    return 0;
 }

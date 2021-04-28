@@ -1,3 +1,9 @@
+// Breath-First Search
+// input:
+// list of edges
+// output:
+// length of the shortest path 
+// Written by Dmitriy Okoneshnikov, 2020
 #include <iostream>
 #include <fstream>
 #include <iterator>
@@ -86,14 +92,17 @@ int main(int argc, char **argv)
         if (t == 1)
         {
             arr[i][j] = 1;
-        } else if (t == 2)
+        }
+        else if (t == 2)
         {
             arr[i][j] = k;
-        } else if (t == 3)
+        }
+        else if (t == 3)
         {
             arr[i][j] = 1;
             arr[j][i] = 1;
-        } else if (t == 4)
+        }
+        else if (t == 4)
         {
             arr[i][j] = k;
             arr[j][i] = k;
