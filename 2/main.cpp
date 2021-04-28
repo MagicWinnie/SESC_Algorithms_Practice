@@ -9,23 +9,6 @@
 
 using namespace std;
 
-void printArr(vector<vector<int>> arr, int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-            cout << arr[i][j] << " ";
-        cout << endl;
-    }
-}
-
-void printArr(vector<int> arr, int n)
-{
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
-    cout << endl;
-}
-
 void DFS(vector<vector<int>> arr, int s, vector<bool> &visited, vector<int> &path)
 {
     visited[s] = true;
@@ -57,6 +40,8 @@ int main(int argc, char **argv)
     int n, m, t, s, f;
 
     inp >> s >> f;
+    s--;
+    f--;
     inp >> n >> m >> t;
 
     vector<vector<int>> arr(n, vector<int>(n));
@@ -64,6 +49,8 @@ int main(int argc, char **argv)
     {
         int i, j, k;
         inp >> i >> j;
+        i--;
+        j--;
         if (t == 2 || t == 4)
         {
             inp >> k;
@@ -71,14 +58,17 @@ int main(int argc, char **argv)
         if (t == 1)
         {
             arr[i][j] = 1;
-        } else if (t == 2)
+        }
+        else if (t == 2)
         {
             arr[i][j] = k;
-        } else if (t == 3)
+        }
+        else if (t == 3)
         {
             arr[i][j] = 1;
             arr[j][i] = 1;
-        } else if (t == 4)
+        }
+        else if (t == 4)
         {
             arr[i][j] = k;
             arr[j][i] = k;
