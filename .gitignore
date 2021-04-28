@@ -2,5 +2,6 @@
 *.exe
 *.txt
 _transfer_format.py
+_add_one.py
 .vscode/
 __pycache__/
