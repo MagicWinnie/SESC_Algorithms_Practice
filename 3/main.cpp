@@ -2,7 +2,7 @@
 // input:
 // list of edges
 // output:
-// sum of weights of the shortest path 
+// sum of weights of the shortest path
 // Written by Dmitriy Okoneshnikov, 2021
 #include <iostream>
 #include <fstream>
@@ -120,7 +120,8 @@ int main(int argc, char **argv)
     ofstream out(output_filename, std::ios::out | std::ios::trunc);
     cout << "[DEBUG] Error: " << strerror(errno) << endl;
     cout << "[DEBUG] File path: " << argv[2] << endl;
-
+    if (cost == INF)
+        cost = 0;
     out << cost << endl;
     out.close();
 }

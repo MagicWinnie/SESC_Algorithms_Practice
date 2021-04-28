@@ -133,6 +133,6 @@ int main(int argc, char **argv)
 
     out << ch.size() << endl;
     for (int i = 0; i < ch.size(); i++)
-        out << getIndex(arr, ch[i]) + 1 << endl;
+        out << getIndex(arr, ch[i]) + 1 << " ";
     out.close();
 }

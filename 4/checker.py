@@ -34,7 +34,7 @@ def checker(path_to_input, path_to_output):
         t = float(f.readline())
         output_len = int(f.readline())
         # output_pts = [list(map(float, f.readline().split())) for _ in range(output_len)]
-        output_pts = [int(f.readline()) for _ in range(output_len)]
+        output_pts = list(map(int, f.readline().split()))
 
         user_output['list'] = output_pts
 
