@@ -16,4 +16,4 @@ def checker(path_to_input, path_to_output):
         user_output['list'] = output_pts
 
 
-    return user_output, true_output, check_arrs(output_pts, true_pts)
+    return user_output, true_output, False # check_arrs(output_pts, true_pts)

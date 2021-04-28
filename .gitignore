@@ -1,7 +1,8 @@
 *.o
 *.exe
 *.txt
-_transfer_format.py
 _add_one.py
+_transfer_format.py
+_test_on_python.py
 .vscode/
 __pycache__/
