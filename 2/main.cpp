@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <queue>
 #include <cmath>
-#include <cstring>
 #include <vector>
 
 using namespace std;
@@ -21,7 +20,7 @@ void DFS(vector<vector<int>> arr, int s, vector<bool> &visited, vector<int> &pat
     // cout << s << " " << visited[s] << endl;
     path.push_back(s);
     for (int r = 0; r < arr.size(); r++)
-        if (arr[s][r] == 1 && !visited[r])
+        if (arr[s][r] != INT_MAX && !visited[r])
         {
             DFS(arr, r, visited, path);
         }
@@ -51,6 +50,13 @@ int main(int argc, char **argv)
     inp >> n >> m >> t;
 
     vector<vector<int>> arr(n, vector<int>(n));
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            arr[i][j] = INT_MAX;
+        }
+    }
     for (int l = 0; l < m; l++)
     {
         int i, j, k;
@@ -88,8 +94,6 @@ int main(int argc, char **argv)
     DFS(arr, s, visited, path);
 
     ofstream out(output_filename, std::ios::out | std::ios::trunc);
-    cout << "[DEBUG] Error: " << strerror(errno) << endl;
-    cout << "[DEBUG] File path: " << argv[2] << endl;
 
     out << visited[f] << endl;
     out.close();

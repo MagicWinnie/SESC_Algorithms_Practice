@@ -9,7 +9,6 @@
 #include <iterator>
 #include <algorithm>
 #include <queue>
-#include <cstring>
 #include <cmath>
 #include <vector>
 const int INF = 100000;
@@ -118,8 +117,6 @@ int main(int argc, char **argv)
     int cost = BellmanFord(arr, n, m, s, f);
 
     ofstream out(output_filename, std::ios::out | std::ios::trunc);
-    cout << "[DEBUG] Error: " << strerror(errno) << endl;
-    cout << "[DEBUG] File path: " << argv[2] << endl;
     if (cost == INF)
         cost = 0;
     out << cost << endl;

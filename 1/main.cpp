@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-#include <cstring>
 #include <queue>
 #include <cmath>
 
@@ -112,8 +111,6 @@ int main(int argc, char **argv)
 
     int path = BFS(arr, s, f, n);
     ofstream out(output_filename, std::ios::out | std::ios::trunc);
-    cout << "[DEBUG] Error: " << strerror(errno) << endl;
-    cout << "[DEBUG] File path: " << argv[2] << endl;
 
     out << path << endl;
 

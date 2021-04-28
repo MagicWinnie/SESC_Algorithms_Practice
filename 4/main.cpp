@@ -10,7 +10,6 @@
 #include <chrono>
 #include <vector>
 #include <limits>
-#include <cstring>
 #include <algorithm>
 
 using namespace std;
@@ -128,8 +127,6 @@ int main(int argc, char **argv)
     ofstream out(output_filename, std::ios::out | std::ios::trunc);
     out.precision(dbl::max_digits10);
     out << chrono::duration<double, nano>(diff).count() << endl;
-    cout << "[DEBUG] Error: " << strerror(errno) << endl;
-    cout << "[DEBUG] File path: " << argv[2] << endl;
 
     out << ch.size() << endl;
     for (int i = 0; i < ch.size(); i++)

@@ -4,7 +4,6 @@
 #include <map>
 #include <queue>
 #include <string>
-#include <cstring>
 
 using namespace std;
 
@@ -132,8 +131,6 @@ int main(int argc, char **argv)
     find_all(text, root);
 
     ofstream out(argv[2], std::ios::out | std::ios::trunc);
-    cout << "[DEBUG] Error: " << strerror(errno) << endl;
-    cout << "[DEBUG] File path: " << argv[2] << endl;
 
     // out << ch.size() << endl;
     // for (int i = 0; i < ch.size(); i++)
