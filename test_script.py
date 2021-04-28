@@ -91,6 +91,9 @@ def clearFolder(path, BLACKLIST=['o', 'exe']):
 assert 'tests' in os.listdir(ROOT_SUBFOLDER), "[ERROR] No input folder"
 
 n = len(os.listdir(os.path.join(ROOT_SUBFOLDER, 'tests')))
+
+assert n > 0, "[ERROR] No input files found in '" + os.path.join(ROOT_SUBFOLDER, 'tests') + "'"
+
 TIME_LIMIT = 5
 
 FILE_TO_RUN = set(WHITELIST).intersection(set(os.listdir(ROOT_SUBFOLDER)))

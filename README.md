@@ -4,7 +4,7 @@
 ## **Requirements:**  
 #### python3.6 or higher
 #### mingw  
-#### `python -m pip install numpy scipy matplotlib`
+#### `python -m pip install numpy scipy matplotlib networkx`
 
 ## Contents
 * First Semester  
