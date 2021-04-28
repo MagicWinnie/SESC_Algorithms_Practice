@@ -28,7 +28,7 @@ def checker(path_to_input, path_to_output):
     
     true_pts = true_pts[:-1]
 
-    true_pts = [true_inp_pts.index(x) for x in true_pts]
+    true_pts = [true_inp_pts.index(x) + 1 for x in true_pts]
 
     with open(path_to_output, 'r') as f:
         t = float(f.readline())
