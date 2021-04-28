@@ -1,5 +1,6 @@
 import numpy as np
 import networkx as nx
+import matplotlib.pyplot as plt
 from networkx.algorithms import tree
 
 def checker(path_to_input, path_to_output):
@@ -18,13 +19,20 @@ def checker(path_to_input, path_to_output):
                 G.add_edge(i, j)
             elif t == 2:
                 i, j, k = map(int, f.readline().split())
-                G.add_edge(i, j, k)
+                G.add_edge(i, j, weight=k)
             elif t == 3:
                 i, j = map(int, f.readline().split())
                 G.add_edge(i, j)
             elif t == 4:
                 i, j, k = map(int, f.readline().split())
-                G.add_edge(i, j, k)
+                G.add_edge(i, j, weight=k)
+    mst = list(tree.minimum_spanning_edges(G, algorithm="kruskal", data=True))
+
+    # nx.draw_spring(G, with_labels = True)
+    # plt.show()
+
+    true_output['n'] = sum(x[-1]['weight'] for x in mst) if nx.is_connected(G) else -1
+
     with open(path_to_output, 'r') as f:
         output_len = int(f.readline())
         

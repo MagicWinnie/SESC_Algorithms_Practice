@@ -76,7 +76,6 @@ int kruskal(vector<vector<pair<int, int>>> arr)
     int sum = 0;
     while (!edges.empty())
     {
-
         edge shortest = edges.back();
         edges.pop_back();
 
@@ -128,8 +127,7 @@ int main(int argc, char **argv)
     {
         int i, j, k;
         inp >> i >> j;
-        if (i == j)
-            continue;
+        
         i--;
         j--;
         if (t == 2 || t == 4)
@@ -161,7 +159,6 @@ int main(int argc, char **argv)
         }
     }
     inp.close();
-
     if (!check_if_connected(arr, n))
     {
         ofstream out(output_filename, std::ios::out | std::ios::trunc);
