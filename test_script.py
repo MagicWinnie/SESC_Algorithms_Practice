@@ -99,7 +99,7 @@ ROOT_SUBFOLDER = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), TO_PRINT[inp]['path'])
 
 
-def clearFolder(path, BLACKLIST=['o', 'exe']):
+def clearFolder(path, BLACKLIST=['txt', 'out', 'o', 'exe']):
     for filename in os.listdir(path):
         if filename.split('.')[-1] not in BLACKLIST:
             continue
@@ -119,6 +119,8 @@ TIME_LIMIT = 5
 FILE_TO_RUN = set(WHITELIST).intersection(set(os.listdir(ROOT_SUBFOLDER)))
 assert len(FILE_TO_RUN) > 0, "[ERROR] No 'main.cpp' or 'main.c' file"
 FILE_TO_RUN = list(FILE_TO_RUN)[0]
+
+clearFolder(ROOT_SUBFOLDER)
 
 # compiling
 print('COMPILING...')
