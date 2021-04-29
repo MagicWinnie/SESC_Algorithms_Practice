@@ -1,11 +1,6 @@
 import os
 import sys
-import shutil
 from pprint import pprint
-
-import random
-
-from functools import reduce
 
 import subprocess
 from subprocess import TimeoutExpired
@@ -31,8 +26,6 @@ try:
 except ModuleNotFoundError:
     raise Exception(
         "You don't have networkx installed. Install it using: 'python -m pip install networkx'")
-
-from scipy.spatial import ConvexHull
 
 WORKING_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
