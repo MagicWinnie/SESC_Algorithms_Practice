@@ -18,8 +18,8 @@
     * [DFS](2/main.cpp)  
     * [Ford-Bellman](3/main.cpp)  
     * [Graham's Convex Hull](4/main.cpp)  
-    * [Aho-Corasick](5/main.cpp)
-    * [AVL-tree](6/main.cpp)
+    * [Aho-Corasick (Not implemented)](5/main.cpp)
+    * [AVL-tree (Not implemented)](6/main.cpp)
     * [Kosaraju's algorithm](7/main.cpp)
     * [Kruskal's algorithm](8/main.cpp)
 
@@ -34,4 +34,4 @@ Add the following header for new tasks
 // @author, year
 ```
 
-Made by Dmitriy Okoneshnikov, 10-4, SESC of NSU, 2021  
+Made by Dmitriy Okoneshnikov, 10-4, SESC of NSU, 2020-2021  

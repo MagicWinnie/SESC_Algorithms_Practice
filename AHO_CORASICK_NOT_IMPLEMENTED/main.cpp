@@ -7,38 +7,6 @@
 
 using namespace std;
 
-// struct tree
-// {
-//     map<int, tree *> to;
-//     tree *link;
-// };
-
-// void bfs(tree *root) {
-//     queue<tree*> q;
-//     // сразу проставим ссылку корню и его детям
-//     root->link = root;
-//     for (auto pair : root->to) {
-//         pair.second->link = root;
-//         // запушим детей в очередь, чтобы начать со второго слоя бора
-//         q.push(pair.second);
-//     }
-//     // идём обычным бфсом
-//     while (!q.empty()) {
-//         // достали вершину
-//         auto v = q.front();
-//         q.pop();
-//         // обойдём всех потомков, для которых есть переход в боре
-//         for (auto pair : v->to) {
-//             int parent_char = pair.first;
-//             tree *child = pair.second;
-//             tree *parent_suffix = v->link; // нашли максимальный суффикс родителя
-//             tree *next_suffix = parent_suffix->to[parent_char]; // нашли переход из суффикса родителя по заданному символу
-//             child->link = next_suffix; // присвоили это значение ребёнку
-//             q.push(child); // запушили ребёнка в очередь
-//         }
-//     }
-// }
-
 class Aho
 {
     struct tree
@@ -127,8 +95,8 @@ int main(int argc, char **argv)
 
     inp >> text;
 
-    struct tree *root = create_machine(patterns);
-    find_all(text, root);
+    // struct tree *root = create_machine(patterns);
+    // find_all(text, root);
 
     ofstream out(argv[2], std::ios::out | std::ios::trunc);
 
